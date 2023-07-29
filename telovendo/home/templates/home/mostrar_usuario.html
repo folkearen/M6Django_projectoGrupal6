@@ -1,0 +1,26 @@
+{% extends 'home/layout/base.html' %}
+{% block main %}
+<h2>Mostrando usuarios</h2>
+{% for user in lista_usuario %}
+    <table class="table">
+        <thead>
+        <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Apellido</th>
+            <th scope="col">Rut</th>
+            <th scope="col">email</th>
+            <th scope="col">Fecha de Registro</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>{{ user.nombre }}</td>
+            <td>{{ user.apellido }}</td>
+            <td>{{ user.rut }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.fecha_registro }}</td>
+        </tr>
+        </tbody>
+    </table>
+{% endfor %}
+{% endblock main %} 

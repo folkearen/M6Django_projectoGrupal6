@@ -1,0 +1,17 @@
+.nav{
+    color: black;
+}
+
+body{
+    background-color:aliceblue;
+}
+
+header {
+    min-height: 10vh;
+}
+main {
+    min-height: 80vh;
+}
+footer {
+    min-height: 10vh;
+}

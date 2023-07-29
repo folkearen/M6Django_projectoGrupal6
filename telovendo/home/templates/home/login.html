@@ -1,0 +1,16 @@
+{% extends 'home/layout/base.html' %}
+{% block main %}
+    <h1>Iniciar sesión</h1>
+    <form method="POST">
+        {% csrf_token %}
+    
+        <label for="{{ form.username.id_for_label }}">Correo electrónico:</label>
+        {{ form.username }}
+ 
+  
+        <label for="{{ form.password.id_for_label }}">Contraseña:</label>
+        {{ form.password }}
+  
+      <input  type="submit" value="Iniciar sesión">
+    </form>
+{% endblock main %}

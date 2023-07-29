@@ -1,0 +1,55 @@
+Elaboren una pequeña guía para que cualquier persona pueda mostrar contenido dinámico desde un
+archivo sqlite3 a una aplicación web.
+
+- Se debe primeramente crear el proyecto y la aplicación de Django, para esto nos situamos en visual studio en la carpeta donde se pretenede crear el proyecto y se ejecuta el comando python manage.py startapp nombre_de_tu_app en la consola.
+
+- En el archivo models.py de tu app, se debe crear una clase con la logica de la tabla a generar, se deja estructura segun ejemplo visto en clases:
+
+from django.db import models	
+
+	class Tweet(models.Model):
+    		cuerpo = models.TextField(max_length=250)
+    		fecha = models.DateTimeField(default=timezone.now)
+
+- Ejecutar los  siguientes comandos, estos tienen como fin indicar al programa que se generaron cambios en models y que debe actuarilar y completar la base de datos.
+ 
+		python manage.py makemigrations
+		python manage.py migrate
+
+-En el archivo views.py de nombre_de_tu_app, se debe crear una clase que consulte los datos y los envie a los html correspondientes, se deja la estructura segun ejemplo visto en clases:
+
+from django.shortcuts import render
+from .models import Publicacion
+from .forms import TweetForm
+
+	def createTweet(request):
+   	 	if request.method == "POST":
+        		formulario_post = TweetForm(request.POST)
+        		if formulario_post.is_valid():
+            			tweet = formulario_post.save(commit = False)
+            			tweet.save()
+    		formulario_get = TweetForm()
+    		return render(request,'home/tweet_create.html',{'formulario':formulario_get})
+
+
+-En la carpeta de templates, crear un archivo HTML, este archivo lo usaremos para mostrar la funciona creada anteriormente, para este caso en particular, se genera la vista para poder visualizar como un formulario, se deja el ejemplo visto en clases:
+
+    <form method='POST'>
+        {% csrf_token %}
+        {{ formulario|crispy }}
+        <button type="submit">Ingresar aca</button>
+    </form>
+
+# el script {{ formulario|crispy }}, corresponde a la importaciones desde una libreria de un formato de formulario#
+
+- Finalmente se debe modificar el archivo urls.py y agregar la ruta para poder ver nuestra nueva pagina se deja ejemplo segun lo visto en clases:
+
+from django.contrib import admin
+from django.urls import path, include
+from . import views
+
+	urlpatterns = [
+		..... #Aqui van otras rutas#
+		..... #Aqui van otras rutas#
+		path('tweet/', views.createTweet, name='crear-tweet')
+	]
