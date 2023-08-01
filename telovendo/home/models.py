@@ -1,10 +1,14 @@
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractUser, Group
 
 
+class CustomGroup(Group):
+    pass
+
+
+
+      
 class Usuario(AbstractUser):
-
-
   username = models.CharField(max_length=50, null=False, unique=True)
   nombre = models.CharField(max_length=50,  null=True)
   apellido = models.CharField(max_length=50,  null=True)
@@ -18,6 +22,14 @@ class Usuario(AbstractUser):
     self.username = self.email  # Asignamos el valor del email al username
     super().save(*args, **kwargs)
 
+
+
+class UsuarioGroup(models.Model):
+    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    grupo = models.ForeignKey(CustomGroup, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ['usuario', 'grupo']
 
 class Proveedor(models.Model):
   nombre_empresa = models.CharField(max_length=200)

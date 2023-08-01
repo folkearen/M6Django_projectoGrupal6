@@ -15,10 +15,15 @@ class ProveedorForm(forms.ModelForm):
                 'Comentario' : 'comentario'}
 
 class SignUp(UserCreationForm):
-
+    campos = (
+        ('Administrador', 'admin'),
+        ('Usuario comun', 'usuario_comun'),
+        ('Moderador de permisos','permission_manger')
+    )
+    tipo_usuario = forms.ChoiceField(choices=campos)
     class Meta:
         model = Usuario
-        fields = ['nombre', 'apellido', 'rut', 'email', 'telefono']
+        fields = ['nombre', 'apellido', 'rut', 'email', 'telefono', 'tipo_usuario']
         labels = {
             'Nombres': 'nombre',
             'Apellidos' : 'apellido',
