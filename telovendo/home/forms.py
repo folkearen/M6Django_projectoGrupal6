@@ -16,9 +16,9 @@ class ProveedorForm(forms.ModelForm):
 
 class SignUp(UserCreationForm):
     campos = (
-        ('Administrador', 'admin'),
-        ('Usuario comun', 'usuario_comun'),
-        ('Moderador de permisos','permission_manger')
+        ('admin', 'Administrador'),
+        ('usuario_comun', 'Usuario comun'),
+        ('permission_manger', 'Moderador de permisos')
     )
     tipo_usuario = forms.ChoiceField(choices=campos)
     class Meta:
